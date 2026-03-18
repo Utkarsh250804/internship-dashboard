@@ -1,0 +1,86 @@
+1️⃣ Entities and Attributes
+Student
+
+Primary Key: StudentID
+
+Attributes:
+
+StudentID (PK)
+
+StudentName
+
+Email
+
+Course
+
+Primary Key: CourseCode
+
+Attributes:
+
+CourseCode (PK)
+
+Title
+
+Instructor
+
+Enrollment (Linking Entity)
+
+Primary Key: EnrollmentID
+
+Attributes:
+
+EnrollmentID (PK)
+
+StudentID (FK)
+
+CourseCode (FK)
+
+2️⃣ Relationship
+
+Relationship Name:
+
+Student enrolls in Course
+
+Because:
+
+One student → many courses
+
+One course → many students
+
+So relationship = Many-to-Many (M:N)
+
+Isliye Enrollment table use hoti hai.
+
+3️⃣ ER Diagram Structure (Draw Like This)
+        ┌───────────────┐
+        │    STUDENT    │
+        │---------------│
+        │ StudentID PK  │
+        │ StudentName   │
+        │ Email         │
+        └───────────────┘
+               │
+               │
+               │
+        ┌───────────────┐
+        │  ENROLLMENT   │
+        │---------------│
+        │EnrollmentID PK│
+        │StudentID  FK  │
+        │CourseCode FK  │
+        └───────────────┘
+               │
+               │
+               │
+        ┌───────────────┐
+        │    COURSE     │
+        │---------------│
+        │CourseCode PK  │
+        │Title          │
+        │Instructor     │
+        └───────────────┘
+
+Relationship view:
+
+Student  ────< Enrollment >──── Course
+            (Many-to-Many)

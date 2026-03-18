@@ -1,0 +1,19 @@
+SELECT *
+FROM (
+    SELECT 
+        c.category_name,
+        p.product_name,
+        SUM(s.quantity) AS total_quantity,
+        DENSE_RANK() OVER (
+            PARTITION BY c.category_name 
+            ORDER BY SUM(s.quantity) DESC
+        ) AS rank_num
+    FROM sales s
+    JOIN products p 
+        ON s.product_id = p.product_id
+    JOIN categories c 
+        ON p.category_id = c.category_id
+    WHERE s.sale_date BETWEEN '2023-01-01' AND '2023-12-31'
+    GROUP BY c.category_name, p.product_name
+) ranked_products
+WHERE rank_num <= 3;

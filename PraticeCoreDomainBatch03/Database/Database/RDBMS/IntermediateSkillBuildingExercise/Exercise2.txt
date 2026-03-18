@@ -1,0 +1,48 @@
+Exercise 2
+Writing SQL Queries to Retrieve Data Using Joins
+
+1. Tables
+
+Employees Table
+EmployeeID | EmployeeName | DepartmentID | Email
+-------------------------------------------------
+E001 | John Smith | D01 | john.smith@company.com
+E002 | Mary Jones | D02 | mary.jones@company.com
+E003 | Steve Clark | D01 | steve.clark@company.com
+
+
+Departments Table
+DepartmentID | DepartmentName | DepartmentHead
+----------------------------------------------
+D01 | Sales | Alice Johnson
+D02 | HR | Bob Brown
+
+
+2. SQL Query Using INNER JOIN
+
+SELECT 
+Employees.EmployeeID,
+Employees.EmployeeName,
+Departments.DepartmentName,
+Departments.DepartmentHead
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+
+
+3. Explanation
+
+The INNER JOIN combines records from both tables based on a matching value in the DepartmentID column.
+
+Employees.DepartmentID matches Departments.DepartmentID to retrieve the department name and department head for each employee.
+
+
+4. Role of Keys in Joining Tables
+
+Primary Key:
+DepartmentID in the Departments table acts as the Primary Key because it uniquely identifies each department.
+
+Foreign Key:
+DepartmentID in the Employees table acts as a Foreign Key because it references the DepartmentID in the Departments table.
+
+Using these keys allows the database to correctly match employees with their respective departments.

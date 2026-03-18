@@ -1,0 +1,114 @@
+This case study is about **normalizing price data** (moving multiple price columns into rows).
+You will perform **3 main tasks**: create staging table → create normalized table → load normalized data.
+
+---
+
+# 1️⃣ Create Staging Table
+
+This table stores **different prices in different columns** (denormalized format).
+
+```sql
+CREATE TABLE StagingPrices (
+    RecordId INT IDENTITY(1,1) PRIMARY KEY,
+    SecurityId VARCHAR(20),
+    VendorId VARCHAR(20),
+    ExchangeCode VARCHAR(20),
+    CurrencyCode VARCHAR(10),
+    PriceDate DATE,
+    AskPrice NUMERIC(10,2),
+    BidPrice NUMERIC(10,2),
+    MidPrice NUMERIC(10,2),
+    OpenPrice NUMERIC(10,2),
+    ClosePrice NUMERIC(10,2),
+    NAVPrice NUMERIC(10,2),
+    CompositePrice NUMERIC(10,2)
+);
+```
+
+---
+
+# 2️⃣ Insert Sample Data into Staging Table
+
+```sql
+INSERT INTO StagingPrices
+(SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate,
+ AskPrice, BidPrice, MidPrice, OpenPrice, ClosePrice, NAVPrice, CompositePrice)
+VALUES
+('SEC001','V001','NYSE','USD','2025-01-01',101,99,100,98,102,100,101),
+('SEC002','V001','NASDAQ','USD','2025-01-01',201,198,199,197,202,200,201);
+```
+
+---
+
+# 3️⃣ Create Normalized Table
+
+In this table **all prices are stored in one column**, and the **price type is stored separately**.
+
+```sql
+CREATE TABLE NormalizedPrices (
+    RecordId INT IDENTITY(1,1) PRIMARY KEY,
+    SecurityId VARCHAR(20),
+    VendorId VARCHAR(20),
+    ExchangeCode VARCHAR(20),
+    CurrencyCode VARCHAR(10),
+    PriceDate DATE,
+    PriceType VARCHAR(20),
+    Price NUMERIC(10,2)
+);
+```
+
+---
+
+# 4️⃣ Load Normalized Table (Normalization)
+
+Convert columns → rows.
+
+```sql
+INSERT INTO NormalizedPrices
+(SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, PriceType, Price)
+
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'ASK', AskPrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'BID', BidPrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'MID', MidPrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'OPEN', OpenPrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'CLOSE', ClosePrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'NAV', NAVPrice
+FROM StagingPrices
+
+UNION ALL
+SELECT SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, 'COMPOSITE', CompositePrice
+FROM StagingPrices;
+```
+
+---
+
+# 5️⃣ Example Result (Normalized Table)
+
+| SecurityId | PriceType | Price |
+| ---------- | --------- | ----- |
+| SEC001     | ASK       | 101   |
+| SEC001     | BID       | 99    |
+| SEC001     | MID       | 100   |
+| SEC001     | OPEN      | 98    |
+| SEC001     | CLOSE     | 102   |
+| SEC001     | NAV       | 100   |
+| SEC001     | COMPOSITE | 101   |
+
+Now **all prices are stored in one column**, which makes **analysis, filtering, and processing easier**.
+
+---

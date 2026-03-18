@@ -1,0 +1,11 @@
+SELECT 
+    c.category_name,
+    COALESCE(SUM(s.quantity * s.price), 0) AS total_revenue
+FROM categories c
+LEFT JOIN products p 
+    ON c.category_id = p.category_id
+LEFT JOIN sales s 
+    ON p.product_id = s.product_id
+    AND s.sale_date BETWEEN '2023-01-01' AND '2023-03-31'
+GROUP BY c.category_name
+ORDER BY c.category_name;

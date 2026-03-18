@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 70%;
+            padding: 8px;
+        }
+
+        button {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>To-Do List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button onclick="todo.addTask()">Add</button>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    const todo = {
+        tasks: [],
+
+        addTask: function() {
+            const input = document.getElementById("taskInput");
+            const taskName = input.value.trim();
+
+            if (taskName === "") return;
+
+            this.tasks.push({ name: taskName, completed: false });
+            input.value = "";
+            this.displayTasks();
+        },
+
+        displayTasks: function() {
+            const list = document.getElementById("taskList");
+            list.innerHTML = "";
+
+            this.tasks.forEach((task, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span class="${task.completed ? 'completed' : ''}">
+                        ${task.name}
+                    </span>
+                    <button onclick="todo.completeTask(${index})">
+                        ✓
+                    </button>
+                `;
+                list.appendChild(li);
+            });
+        },
+
+        completeTask: function(index) {
+            this.tasks[index].completed = true;
+            this.displayTasks();
+        }
+    };
+</script>
+
+</body>
+</html>

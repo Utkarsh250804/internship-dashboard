@@ -1,0 +1,1 @@
+fread(&emp, sizeof(struct employee), 1, fp);

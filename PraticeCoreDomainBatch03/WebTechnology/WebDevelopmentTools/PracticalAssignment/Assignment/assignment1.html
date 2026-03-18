@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Restaurant Menu</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f4f4;
+margin:0;
+padding:20px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+/* Buttons */
+
+.buttons button{
+padding:10px 20px;
+margin:5px;
+border:none;
+background:#2196f3;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+.buttons button:hover{
+background:#1976d2;
+}
+
+/* Menu grid */
+
+.menu-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+max-width:900px;
+margin:auto;
+}
+
+.menu-item{
+background:white;
+padding:10px;
+border-radius:10px;
+box-shadow:0 0 5px rgba(0,0,0,0.2);
+}
+
+.menu-item img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.menu-item button{
+margin-top:10px;
+padding:8px 12px;
+background:#4CAF50;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+/* Cart */
+
+.cart{
+margin-top:30px;
+background:white;
+padding:20px;
+max-width:500px;
+margin-left:auto;
+margin-right:auto;
+box-shadow:0 0 5px rgba(0,0,0,0.2);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Restaurant Menu</h1>
+
+<div class="buttons">
+
+<button onclick="filterMenu('all')">All</button>
+<button onclick="filterMenu('breakfast')">Breakfast</button>
+<button onclick="filterMenu('lunch')">Lunch</button>
+<button onclick="filterMenu('shakes')">Shakes</button>
+
+</div>
+
+<div class="menu-container">
+
+<div class="menu-item breakfast">
+<img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0">
+<h3>Pancakes</h3>
+<p>$5</p>
+<button onclick="addToCart('Pancakes',5)">Add to Cart</button>
+</div>
+
+<div class="menu-item breakfast">
+<img src="https://images.unsplash.com/photo-1525351484163-7529414344d8">
+<h3>Omelette</h3>
+<p>$4</p>
+<button onclick="addToCart('Omelette',4)">Add to Cart</button>
+</div>
+
+<div class="menu-item lunch">
+<img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d">
+<h3>Burger</h3>
+<p>$8</p>
+<button onclick="addToCart('Burger',8)">Add to Cart</button>
+</div>
+
+<div class="menu-item lunch">
+<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c">
+<h3>Pizza</h3>
+<p>$10</p>
+<button onclick="addToCart('Pizza',10)">Add to Cart</button>
+</div>
+
+<div class="menu-item shakes">
+<img src="https://images.unsplash.com/photo-1497534446932-c925b458314e">
+<h3>Chocolate Shake</h3>
+<p>$4</p>
+<button onclick="addToCart('Chocolate Shake',4)">Add to Cart</button>
+</div>
+
+<div class="menu-item shakes">
+<img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
+<h3>Strawberry Shake</h3>
+<p>$4</p>
+<button onclick="addToCart('Strawberry Shake',4)">Add to Cart</button>
+</div>
+
+</div>
+
+<div class="cart">
+
+<h2>Food Basket (Cart)</h2>
+
+<ul id="cart-list"></ul>
+
+</div>
+
+<script>
+
+/* Filter menu */
+
+function filterMenu(category){
+
+let items=document.querySelectorAll(".menu-item");
+
+items.forEach(function(item){
+
+if(category==="all"){
+item.style.display="block";
+}
+else if(item.classList.contains(category)){
+item.style.display="block";
+}
+else{
+item.style.display="none";
+}
+
+});
+
+}
+
+/* Add to cart */
+
+function addToCart(name,price){
+
+let cart=document.getElementById("cart-list");
+
+let li=document.createElement("li");
+
+li.textContent=name+" - $"+price;
+
+cart.appendChild(li);
+
+}
+
+</script>
+
+</body>
+</html>

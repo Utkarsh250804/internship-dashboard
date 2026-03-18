@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherPro | Real-time Insights</title>
+    <!-- Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --glass: rgba(255, 255, 255, 0.2);
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: var(--text);
+        }
+
+        .weather-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus { border-color: var(--primary); }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .weather-info {
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .temp {
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        .desc {
+            text-transform: capitalize;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .error { color: #ef4444; font-size: 0.9rem; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="weather-card">
+    <h2 style="margin-top: 0; font-weight: 600;">WeatherPro</h2>
+    <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off">
+        <button id="searchBtn">Find</button>
+    </div>
+    <div id="weatherDisplay"></div>
+</div>
+
+<script>
+    const CONFIG = {
+        API_KEY: 'a5c7fe5f3a68e402f34d13beaa59df17',
+        BASE_URL: 'https://api.openweathermap.org/data/2.5/weather'
+    };
+
+    const ui = {
+        input: document.getElementById('cityInput'),
+        button: document.getElementById('searchBtn'),
+        display: document.getElementById('weatherDisplay')
+    };
+
+    async function fetchWeather() {
+        const city = ui.input.value.trim();
+        if (!city) return;
+
+        ui.display.innerHTML = '<p>Loading...</p>';
+
+        try {
+            const response = await fetch(`${CONFIG.BASE_URL}?q=${city}&appid=${CONFIG.API_KEY}&units=metric`);
+            
+            if (!response.ok) throw new Error('City not found');
+
+            const data = await response.json();
+            renderWeather(data);
+        } catch (err) {
+            ui.display.innerHTML = `<p class="error">⚠️ ${err.message}</p>`;
+        }
+    }
+
+    function renderWeather(data) {
+        ui.display.innerHTML = `
+            <div class="weather-info">
+                <h3 style="margin: 0;">${data.name}, ${data.sys.country}</h3>
+                <div class="temp">${Math.round(data.main.temp)}°C</div>
+                <div class="desc">${data.weather[0].description}</div>
+                <div style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;">
+                    Humidity: ${data.main.humidity}% | Wind: ${data.wind.speed} m/s
+                </div>
+            </div>
+        `;
+    }
+
+    // Listeners for better UX
+    ui.button.addEventListener('click', fetchWeather);
+    ui.input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') fetchWeather();
+    });
+</script>
+
+</body>
+</html>

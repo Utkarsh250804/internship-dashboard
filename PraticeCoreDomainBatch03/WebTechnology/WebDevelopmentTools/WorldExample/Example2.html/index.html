@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>My Blog</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+<div class="logo">MyBlog</div>
+
+<nav>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Posts</a></li>
+<li><a href="#">About</a></li>
+</ul>
+</nav>
+
+</header>
+
+<!-- Blog Posts -->
+
+<section class="blog-section">
+
+<h2>Blog Posts</h2>
+
+<div id="posts"></div>
+
+<h3>Add New Post</h3>
+
+<input type="text" id="title" placeholder="Post Title">
+<input type="text" id="author" placeholder="Author Name">
+<textarea id="content" placeholder="Post Content"></textarea>
+
+<button onclick="addPost()">Add Post</button>
+
+</section>
+
+<!-- Comment Section -->
+
+<section class="comments">
+
+<h2>Leave a Comment</h2>
+
+<input type="text" id="name" placeholder="Name">
+<input type="email" id="email" placeholder="Email">
+<textarea id="comment" placeholder="Your Comment"></textarea>
+
+<button onclick="addComment()">Submit Comment</button>
+
+<ul id="commentList"></ul>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+<p>© 2026 My Blog</p>
+
+<ul>
+<li><a href="#">Facebook</a></li>
+<li><a href="#">Twitter</a></li>
+<li><a href="#">Instagram</a></li>
+</ul>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

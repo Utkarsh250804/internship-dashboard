@@ -1,0 +1,50 @@
+Exercise 1
+Data Transformation with CASE and Aggregation
+
+1. Sample Data
+
+ProductID | ProductName | SalesAmount
+-------------------------------------
+1 | Alpha | 12000
+2 | Beta | 7000
+3 | Gamma | 3000
+4 | Delta | 4000
+
+
+
+2. SQL Query
+SELECT 
+CASE 
+    WHEN SalesAmount >= 10000 THEN 'High Sales'
+    WHEN SalesAmount >= 5000 AND SalesAmount < 10000 THEN 'Medium Sales'
+    ELSE 'Low Sales'
+END AS SalesCategory,
+COUNT(*) AS ProductCount
+FROM Sales
+GROUP BY
+CASE 
+    WHEN SalesAmount >= 10000 THEN 'High Sales'
+    WHEN SalesAmount >= 5000 AND SalesAmount < 10000 THEN 'Medium Sales'
+    ELSE 'Low Sales'
+END;
+
+
+3. Explanation
+CASE statement is used to categorize products based on their sales amount.
+
+High Sales : SalesAmount >= 10000
+Medium Sales : SalesAmount >= 5000 and < 10000
+Low Sales : SalesAmount < 5000
+
+GROUP BY groups the products based on the sales category.
+
+COUNT(*) counts the number of products in each category.
+
+
+4. Expected Output
+
+SalesCategory | ProductCount
+-----------------------------
+High Sales | 1
+Medium Sales | 1
+Low Sales | 2

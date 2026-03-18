@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Converter</title>
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00adb5, #007a80);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00adb5;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #007a80;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Temperature Converter</h2>
+
+    <input type="number" id="tempInput" placeholder="Enter temperature">
+
+    <select id="unit">
+        <option value="C">Celsius (°C)</option>
+        <option value="F">Fahrenheit (°F)</option>
+    </select>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+    function convertTemp() {
+        let value = parseFloat(document.getElementById("tempInput").value);
+        let unit = document.getElementById("unit").value;
+        let result;
+
+        if (isNaN(value)) {
+            document.getElementById("result").innerText = "Please enter a valid number!";
+            return;
+        }
+
+        if (unit === "C") {
+            result = (value * 9/5) + 32;
+            document.getElementById("result").innerText =
+                value + " °C = " + result.toFixed(2) + " °F";
+        } else {
+            result = (value - 32) * 5/9;
+            document.getElementById("result").innerText =
+                value + " °F = " + result.toFixed(2) + " °C";
+        }
+    }
+</script>
+
+</body>
+</html>

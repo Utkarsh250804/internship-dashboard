@@ -1,0 +1,118 @@
+1️⃣ Entities and Attributes
+Book
+
+Attributes:
+
+BookID (Primary Key)
+
+Title
+
+PublicationYear
+
+Author
+
+Attributes:
+
+AuthorID (Primary Key)
+
+AuthorName
+
+2️⃣ Relationship
+
+Relationship Name:
+
+Author writes Book
+
+Explanation:
+
+One author can write multiple books
+
+One book can have multiple authors
+
+Therefore relationship = Many-to-Many (M:N)
+
+Is relationship ko represent karne ke liye junction / associative table use hoti hai.
+
+3️⃣ ER Diagram Structure
+        ┌───────────────┐
+        │     AUTHOR    │
+        │---------------│
+        │ AuthorID  PK  │
+        │ AuthorName    │
+        └───────────────┘
+               │
+               │
+               │
+        ┌───────────────┐
+        │  BOOK_AUTHOR  │
+        │---------------│
+        │ BookID   FK   │
+        │ AuthorID FK   │
+        └───────────────┘
+               │
+               │
+               │
+        ┌───────────────┐
+        │      BOOK     │
+        │---------------│
+        │ BookID   PK   │
+        │ Title         │
+        │ PublicationYr │
+        └───────────────┘
+
+Relationship view:
+
+Author  ────< Book_Author >──── Book
+           (Many-to-Many)
+4️⃣ Relational Schema
+Authors Table
+
+Primary Key: AuthorID
+
+AuthorID	AuthorName
+1	Jane Austen
+2	Mark Twain
+Books Table
+
+Primary Key: BookID
+
+BookID	Title	PublicationYear
+1	Pride and Prejudice	1813
+2	Adventures of Tom Sawyer	1876
+3	Emma	1815
+BookAuthors (Associative Table)
+
+Primary Key: (BookID, AuthorID)
+Foreign Keys:
+
+BookID → Books(BookID)
+
+AuthorID → Authors(AuthorID)
+
+BookID	AuthorID
+1	1
+2	2
+3	1
+5️⃣ Final Tables with Keys
+
+Authors
+
+AuthorID (PK)
+
+AuthorName
+
+Books
+
+BookID (PK)
+
+Title
+
+PublicationYear
+
+BookAuthors
+
+BookID (FK)
+
+AuthorID (FK)
+
+Primary Key = (BookID, AuthorID)

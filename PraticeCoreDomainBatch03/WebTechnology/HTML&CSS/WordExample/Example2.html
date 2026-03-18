@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <style>
+
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* ===== Header ===== */
+        header {
+            background: #111;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: #00adb5;
+        }
+
+        /* ===== About Section ===== */
+        .about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .about img {
+            width: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* ===== Projects Section ===== */
+        .projects-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .project-card {
+            width: 280px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .project-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+        }
+
+        .project-card a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #00adb5;
+        }
+
+        /* ===== Contact Section ===== */
+        .contact form {
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact input,
+        .contact textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        .contact button {
+            padding: 10px;
+            border: none;
+            background: #00adb5;
+            color: white;
+            cursor: pointer;
+        }
+
+        .contact button:hover {
+            background: #007a80;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        footer ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: #00adb5;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .projects-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            header {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <img src="https://picsum.photos/100" alt="Logo">
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="about">
+    <h2>About Me</h2>
+    <img src="https://picsum.photos/200" alt="Profile">
+    <p>Hello! I am a passionate web developer skilled in HTML, CSS and modern web technologies. I enjoy building responsive and user-friendly websites.</p>
+</section>
+
+<!-- ===== PROJECTS SECTION ===== -->
+<section id="projects">
+    <h2>My Projects</h2>
+    <div class="projects-container">
+
+        <div class="project-card">
+            <img src="https://picsum.photos/300/200" alt="Project">
+            <h3>Project One</h3>
+            <p>A responsive ecommerce website.</p>
+            <a href="#">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <img src="https://picsum.photos/300/201" alt="Project">
+            <h3>Project Two</h3>
+            <p>Survey form with validation.</p>
+            <a href="#">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <img src="https://picsum.photos/300/202" alt="Project">
+            <h3>Project Three</h3>
+            <p>Parallax scrolling webpage.</p>
+            <a href="#">View Project</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="4" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>© 2026 My Portfolio. All Rights Reserved.</p>
+    <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">Twitter</a></li>
+    </ul>
+</footer>
+
+</body>
+</html>

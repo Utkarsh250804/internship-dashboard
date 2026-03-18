@@ -1,0 +1,85 @@
+# Exercise 1 — Basic Transaction with COMMIT and ROLLBACK
+
+## Problem
+Transfer **$100 from Account 1 to Account 2**.
+
+Conditions:
+- Both operations must succeed together.
+- If Account 1 has insufficient balance, the transaction should **ROLLBACK**.
+
+---
+
+# SQL Transaction
+
+```sql
+BEGIN TRANSACTION;
+
+-- Deduct $100 from Account 1
+UPDATE Accounts
+SET Balance = Balance - 100
+WHERE AccountID = 1;
+
+-- Check if balance is sufficient
+IF (SELECT Balance FROM Accounts WHERE AccountID = 1) < 0
+BEGIN
+    ROLLBACK;
+    PRINT 'Transaction Failed: Insufficient Balance';
+END
+ELSE
+BEGIN
+    -- Add $100 to Account 2
+    UPDATE Accounts
+    SET Balance = Balance + 100
+    WHERE AccountID = 2;
+
+    COMMIT;
+    PRINT 'Transaction Successful';
+END;
+```
+
+---
+
+# Explanation
+
+**BEGIN TRANSACTION**  
+Starts the transaction.
+
+**UPDATE Accounts SET Balance = Balance - 100**  
+Deducts money from Account 1.
+
+**IF Balance < 0**  
+Checks for insufficient balance.
+
+**ROLLBACK**  
+Cancels all changes if the condition fails.
+
+**COMMIT**  
+Saves the changes if both operations succeed.
+
+---
+
+# Example Table
+
+| AccountID | Balance |
+|---|---|
+| 1 | 500 |
+| 2 | 300 |
+
+After transaction:
+
+| AccountID | Balance |
+|---|---|
+| 1 | 400 |
+| 2 | 400 |
+
+---
+
+# Result
+
+This transaction ensures:
+
+- **Atomicity**
+- **Consistency**
+- **Data integrity**
+
+Both operations either **complete together** or **fail together**.

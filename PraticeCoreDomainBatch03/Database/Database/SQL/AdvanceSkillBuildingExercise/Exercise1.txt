@@ -1,0 +1,37 @@
+WITH RECURSIVE EmployeeHierarchy AS (
+    
+    -- Base case: manager
+    SELECT 
+        employee_id,
+        manager_id,
+        employee_name,
+        salary,
+        0 AS depth
+    FROM employees
+    WHERE employee_id = 101   -- manager id
+    AND is_active = TRUE
+
+    UNION ALL
+
+    -- Recursive case: find subordinates
+    SELECT 
+        e.employee_id,
+        e.manager_id,
+        e.employee_name,
+        e.salary,
+        eh.depth + 1
+    FROM employees e
+    JOIN EmployeeHierarchy eh
+        ON e.manager_id = eh.employee_id
+    WHERE e.is_active = TRUE
+)
+
+SELECT 
+    employee_id,
+    employee_name,
+    manager_id,
+    depth,
+    salary,
+    SUM(salary) OVER () AS total_subtree_salary
+FROM EmployeeHierarchy
+ORDER BY depth, employee_id;

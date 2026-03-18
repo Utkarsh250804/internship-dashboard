@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parallax Scrolling Effect</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Normal Section */
+        .content-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            background: #f4f4f4;
+        }
+
+        /* Parallax Section */
+        .parallax {
+            height: 100vh;
+            background-image: url("https://picsum.photos/1600/900?blur=1");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Key property */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Overlay Layer */
+        .overlay {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .overlay h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        .overlay p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-section">
+        Scroll Down 👇
+    </div>
+
+    <div class="parallax">
+        <div class="overlay">
+            <h1>Parallax Section</h1>
+            <p>Background scrolls slower than content</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+        Keep Scrolling 🚀
+    </div>
+
+</body>
+</html>

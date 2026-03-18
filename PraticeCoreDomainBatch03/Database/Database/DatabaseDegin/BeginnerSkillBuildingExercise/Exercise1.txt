@@ -1,0 +1,56 @@
+1. Entities and Their Attributes
+Entity 1: Student
+
+Attributes:
+
+StudentID (Primary Key)
+
+StudentName
+
+Email
+
+Example (from dataset)
+
+StudentID	StudentName	Email
+1	Alice Lee	alice@univ.edu
+
+2	Bob Smith	bob@univ.edu
+
+3	Carol Jones	carol@univ.edu
+Entity 2: Course
+
+Attributes:
+
+CourseCode (Primary Key)
+
+Title
+
+Instructor
+
+Example:
+
+CourseCode	Title	Instructor
+CS101	Databases	Dr. Patel
+MA201	Calculus	Dr. Gomez
+EN150	Literature	Dr. Reed
+2. Relationship Between Entities
+
+Relationship Name:
+
+Student enrolls in Course
+
+Explanation:
+
+Students university me different courses me enroll karte hain.
+
+3. Cardinality
+
+Relationship type:
+
+Many-to-Many (M:N)
+
+Explanation:
+
+Ek student multiple courses me enroll ho sakta hai.
+
+Ek course me multiple students ho sakte hain.

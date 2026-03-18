@@ -1,0 +1,89 @@
+1️⃣ Functional Dependencies
+
+Functional dependencies batati hain ki kaunsa attribute kis par depend karta hai.
+
+SaleID → CustomerName, CustomerPhone, ProductName, SaleDate, SaleAmount
+
+CustomerName → CustomerPhone
+
+ProductName → ProductCategory
+
+2️⃣ Problems in the Table
+
+Is table me data redundancy hai:
+
+Example
+
+Alice Smith aur phone number repeat ho raha hai
+
+ProductCategory bhi repeat ho rahi hai
+
+Isliye normalization karna zaroori hai.
+
+3️⃣ Decomposition to 3NF
+
+Table ko multiple tables me break karte hain.
+
+1. Customer Table
+
+Primary Key: CustomerID (ya CustomerPhone)
+
+CustomerID	CustomerName	CustomerPhone
+1	Alice Smith	9876543210
+2	Bob Lee	9123456789
+2. Product Table
+
+Primary Key: ProductID
+
+ProductID	ProductName	ProductCategory
+1	Laptop	Electronics
+2	Blender	Appliances
+3	Mouse	Electronics
+3. Sales Table
+
+Primary Key: SaleID
+
+Foreign Keys: CustomerID, ProductID
+
+SaleID	CustomerID	ProductID	SaleDate	SaleAmount
+1	1	1	6/1/2025	1200
+2	2	2	6/2/2025	150
+3	1	3	6/3/2025	20
+4️⃣ Final Tables in 3NF
+Customer
+
+CustomerID (PK)
+
+CustomerName
+
+CustomerPhone
+
+Product
+
+ProductID (PK)
+
+ProductName
+
+ProductCategory
+
+Sales
+
+SaleID (PK)
+
+CustomerID (FK)
+
+ProductID (FK)
+
+SaleDate
+
+SaleAmount
+
+5️⃣ Why This is 3NF
+
+No repeating groups
+
+No partial dependency
+
+No transitive dependency
+
+Each non-key attribute depends only on the primary key

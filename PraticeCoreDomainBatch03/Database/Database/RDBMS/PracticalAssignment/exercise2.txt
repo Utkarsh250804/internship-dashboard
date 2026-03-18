@@ -1,0 +1,26 @@
+-- ==========================================
+-- PRACTICE ASSIGNMENT II
+-- Dynamic Table Creation using Current Date
+-- ==========================================
+
+DECLARE
+    v_table_name VARCHAR2(50);
+    v_sql        VARCHAR2(1000);
+BEGIN
+
+    -- Generate table name using current date (DDMMYYYY)
+    v_table_name := 'ACCOUNTS_' || TO_CHAR(SYSDATE, 'DDMMYYYY');
+
+    -- Dynamic SQL for creating table
+    v_sql := 'CREATE TABLE ' || v_table_name || ' (
+                Account_Id NUMBER PRIMARY KEY,
+                Created_Date DATE NOT NULL,
+                Value_Date DATE,
+                Created_By VARCHAR2(50) NOT NULL
+              )';
+
+    -- Execute dynamic DDL
+    EXECUTE IMMEDIATE v_sql;
+
+END;
+/

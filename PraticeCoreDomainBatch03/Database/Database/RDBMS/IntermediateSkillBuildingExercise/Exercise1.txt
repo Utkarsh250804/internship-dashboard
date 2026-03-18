@@ -1,0 +1,62 @@
+Exercise 1
+Understanding Functional Dependencies and Keys
+
+1. Table Structure
+
+EmployeeID | EmployeeName | Department | DepartmentHead | Email
+-----------------------------------------------------------------
+E001 | John Smith | Sales | Alice Johnson | john.smith@company.com
+E002 | Mary Jones | HR | Bob Brown | mary.jones@company.com
+E003 | Steve Clark | Sales | Alice Johnson | steve.clark@company.com
+
+
+2. Functional Dependencies
+
+EmployeeID -> EmployeeName
+EmployeeID -> Department
+EmployeeID -> Email
+Department -> DepartmentHead
+
+
+3. Candidate Key
+
+The candidate key in this table is:
+
+EmployeeID
+
+Reason:
+EmployeeID uniquely identifies each employee record in the table.
+
+
+4. Attribute Dependency Explanation
+
+EmployeeName depends on EmployeeID because each employee has a unique ID.
+
+Department depends on EmployeeID because each employee belongs to a specific department.
+
+Email depends on EmployeeID because each employee has a unique email.
+
+DepartmentHead depends on Department because each department has one department head.
+
+
+5. Effect on Database Design
+
+The table has a transitive dependency:
+
+EmployeeID -> Department
+Department -> DepartmentHead
+
+This means DepartmentHead indirectly depends on EmployeeID.
+
+To improve database design and reduce redundancy, the table can be normalized into two tables.
+
+
+Employee Table
+EmployeeID | EmployeeName | Department | Email
+
+
+Department Table
+Department | DepartmentHead
+
+
+This design improves data integrity and reduces duplication.

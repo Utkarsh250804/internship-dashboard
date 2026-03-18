@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Book Store - KnockoutJS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 600px;
+            margin-top: 10px
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center
+        }
+
+        input {
+            margin: 4px
+        }
+
+        button {
+            margin: 4px
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Book Store</h2>
+
+    <!-- Add Book -->
+    <h3>Add New Book</h3>
+
+    <input placeholder="Book Name" data-bind="value:newName">
+    <input type="number" placeholder="Quantity" data-bind="value:newQty">
+    <input type="number" placeholder="Price" data-bind="value:newPrice">
+
+    <button data-bind="click:addBook">Add Book</button>
+
+    ---
+
+    <h3>Available Books</h3>
+
+    <button data-bind="click:sortBooks">Sort by Name</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Order</th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach:books">
+            <tr>
+
+                <td data-bind="text:name"></td>
+                <td data-bind="text:qty"></td>
+                <td data-bind="text:price"></td>
+
+                <td>
+
+                    <input type="number" min="1" data-bind="value:orderQty">
+
+                    <button data-bind="click:$parent.orderBook">
+                        Order
+                    </button>
+
+                </td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+    ---
+
+    <h3>Shopping Cart</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach:cart">
+            <tr>
+                <td data-bind="text:name"></td>
+                <td data-bind="text:qty"></td>
+                <td data-bind="text:total"></td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <p data-bind="text:message"></p>
+
+    ---
+
+    <script>
+
+        function Book(name, qty, price) {
+
+            this.name = name;
+            this.qty = ko.observable(qty);
+            this.price = price;
+            this.orderQty = ko.observable(1);
+
+        }
+
+        function ViewModel() {
+
+            var self = this;
+
+            self.books = ko.observableArray([
+
+                new Book("JavaScript", 10, 500),
+                new Book("Python", 7, 600),
+                new Book("React", 5, 700)
+
+            ]);
+
+            self.cart = ko.observableArray([]);
+
+            self.message = ko.observable("");
+
+            self.newName = ko.observable("");
+            self.newQty = ko.observable("");
+            self.newPrice = ko.observable("");
+
+            
+
+                self.addBook=function() {
+
+                    self.books.push(
+                        new Book(self.newName(), self.newQty(), self.newPrice())
+                    );
+
+                    self.newName("");
+                    self.newQty("");
+                    self.newPrice("");
+
+                };
+
+            
+
+                self.sortBooks=function() {
+
+                    self.books.sort(function (a, b) {
+
+                        return a.name.localeCompare(b.name);
+
+                    });
+
+                };
+
+
+                self.orderBook=function(book) {
+
+                    if (book.orderQty() > book.qty()) {
+
+                        self.message("Not enough stock");
+                        return;
+
+                    }
+
+                    book.qty(book.qty() - book.orderQty());
+
+                    self.cart.push({
+
+                        name: book.name,
+                        qty: book.orderQty(),
+                        total: book.orderQty() * book.price
+
+                    });
+
+                    self.message("Book added to cart");
+
+                };
+
+        }
+
+        ko.applyBindings(new ViewModel());
+
+    </script>
+
+</body>
+
+</html>

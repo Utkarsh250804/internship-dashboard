@@ -1,0 +1,3 @@
+SELECT State, COUNT(*) AS TotalCustomers
+FROM Customers
+GROUP BY State;

@@ -1,0 +1,61 @@
+ Routing Data into Multiple Target Tables from Single Table
+
+## Problem Description
+A source data feed contains records from multiple departments such as **Sales** and **Marketing** along with fiscal quarter information.  
+For better management and reconciliation, the data must be routed into **separate department tables**.
+
+The task is to:
+- Create department tables
+- Create a source table
+- Insert sample data
+- Route data to the respective tables based on the department
+
+---
+
+# Step 1: Create Department Tables
+
+## Sales Table
+```sql
+CREATE TABLE Sales_Table (
+    RecordId INT,
+    Department VARCHAR(50),
+    FiscalQuarter VARCHAR(10),
+    Amount NUMERIC(10,2)
+);
+Marketing Table
+CREATE TABLE Marketing_Table (
+    RecordId INT,
+    Department VARCHAR(50),
+    FiscalQuarter VARCHAR(10),
+    Amount NUMERIC(10,2)
+);
+Step 2: Create Source Table
+CREATE TABLE Source_Data (
+    RecordId INT,
+    Department VARCHAR(50),
+    FiscalQuarter VARCHAR(10),
+    Amount NUMERIC(10,2)
+);
+
+
+
+Step 3: Insert Data into Source Table
+
+
+INSERT INTO Source_Data VALUES
+(1,'Sales','Q1',10000),
+(2,'Marketing','Q1',7000),
+(3,'Sales','Q2',15000),
+(4,'Marketing','Q2',8000),
+(5,'Sales','Q3',12000),
+(6,'Marketing','Q3',9000);
+Step 4: Route Data to Target Tables
+
+Using INSERT ALL statement to insert data into multiple tables based on department.
+
+INSERT ALL
+    WHEN Department = 'Sales' THEN
+        INTO Sales_Table
+    WHEN Department = 'Marketing' THEN
+        INTO Marketing_Table
+SELECT * FROM Source_Data;

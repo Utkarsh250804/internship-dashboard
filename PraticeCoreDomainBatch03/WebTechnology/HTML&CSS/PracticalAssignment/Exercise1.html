@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Improvement Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        .radio-group, .checkbox-group {
+            margin-top: 10px;
+        }
+
+        .radio-group input,
+        .checkbox-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Website Improvement Survey</h2>
+
+    <form>
+
+        <!-- Name -->
+        <label>Name:</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <!-- Email -->
+        <label>Email:</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <!-- Age -->
+        <label>Age:</label>
+        <input type="number" min="10" max="100" required>
+
+        <!-- Profession Dropdown -->
+        <label>Profession:</label>
+        <select>
+            <option value="">-- Select Profession --</option>
+            <option>Student</option>
+            <option>Working Professional</option>
+            <option>Business Owner</option>
+            <option>Freelancer</option>
+            <option>Other</option>
+        </select>
+
+        <!-- Feedback Radio Buttons -->
+        <label>How do you rate our webpage?</label>
+        <div class="radio-group">
+            <input type="radio" name="feedback"> Excellent
+            <input type="radio" name="feedback"> Good
+            <input type="radio" name="feedback"> Average
+            <input type="radio" name="feedback"> Poor
+        </div>
+
+        <!-- Content Dropdown -->
+        <label>What content do you like the most?</label>
+        <select>
+            <option value="">-- Select Option --</option>
+            <option>Blogs</option>
+            <option>Tutorials</option>
+            <option>Product Listings</option>
+            <option>Videos</option>
+            <option>Customer Reviews</option>
+        </select>
+
+        <!-- Improvements Checkboxes -->
+        <label>What improvements would you like in future?</label>
+        <div class="checkbox-group">
+            <input type="checkbox"> Better UI Design<br>
+            <input type="checkbox"> Faster Loading Speed<br>
+            <input type="checkbox"> More Content<br>
+            <input type="checkbox"> Mobile Optimization<br>
+            <input type="checkbox"> More Payment Options
+        </div>
+
+        <button type="submit">Submit Survey</button>
+
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek Register | Form Validation</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00adb5;
+            --error: #ff4d4d;
+            --success: #2ecc71;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 { margin-bottom: 1.5rem; font-weight: 600; color: #1a202c; }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #edf2f7;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 173, 181, 0.1);
+        }
+
+        /* Error States */
+        .form-group.invalid input { border-color: var(--error); }
+        .error-text {
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .form-group.invalid .error-text { display: block; }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 1rem;
+        }
+
+        button:hover { background: #008e95; }
+        button:active { transform: scale(0.98); }
+
+        #form-status {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Create Account</h2>
+
+    <form id="registerForm" novalidate>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <span class="error-text">Name is required</span>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="email@example.com">
+            <span class="error-text">Please enter a valid email</span>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="At least 8 characters">
+            <span class="error-text">Minimum 8 characters required</span>
+        </div>
+
+        <button type="submit">Get Started</button>
+        <div id="form-status"></div>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById("registerForm");
+    const status = document.getElementById("form-status");
+
+    // Pro Tip: Validate on 'input' event for real-time feedback
+    const validateField = (input, condition) => {
+        const group = input.parentElement;
+        if (condition) {
+            group.classList.remove('invalid');
+            return true;
+        } else {
+            group.classList.add('invalid');
+            return false;
+        }
+    };
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Run all validations
+        const isNameValid = validateField(name, name.value.trim().length > 0);
+        const isEmailValid = validateField(email, emailPattern.test(email.value.trim()));
+        const isPassValid = validateField(password, password.value.length >= 8);
+
+        if (isNameValid && isEmailValid && isPassValid) {
+            status.style.color = "var(--success)";
+            status.innerText = "🚀 Account created successfully!";
+            form.reset();
+        } else {
+            status.style.color = "var(--error)";
+            status.innerText = "Please fix the errors above.";
+        }
+    });
+
+    // Remove error class as user types
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+            input.parentElement.classList.remove('invalid');
+            status.innerText = "";
+        });
+    });
+</script>
+
+</body>
+</html>

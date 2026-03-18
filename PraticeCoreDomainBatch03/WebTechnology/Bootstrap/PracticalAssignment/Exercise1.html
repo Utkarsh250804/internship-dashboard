@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap Scrollable Modal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5 text-center">
+
+    <h2 class="mb-4">Scrollable Modal Example</h2>
+
+    <!-- Button to Open Modal -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal">
+        Open Modal
+    </button>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Information Window</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Scrollable Body -->
+            <div class="modal-body">
+
+                <h6>About This Modal</h6>
+                <p>This modal demonstrates vertical scrolling using Bootstrap.</p>
+
+                <!-- Long Content for Scroll -->
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <p>Vivamus sagittis lacus vel augue laoreet rutrum.</p>
+                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                <p>Integer posuere erat a ante venenatis dapibus.</p>
+                <p>Curabitur blandit tempus porttitor.</p>
+                <p>Sed posuere consectetur est at lobortis.</p>
+                <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p>Etiam porta sem malesuada magna mollis euismod.</p>
+                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                <p>Vestibulum id ligula porta felis euismod semper.</p>
+                <p>Aenean lacinia bibendum nulla sed consectetur.</p>
+                <p>Scroll to view more content inside the modal.</p>
+                <p>More sample text to demonstrate vertical scrolling.</p>
+                <p>Bootstrap handles overflow automatically.</p>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

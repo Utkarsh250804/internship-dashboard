@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>FAQ Accordion</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:40px;
+}
+
+h1{
+text-align:center;
+}
+
+.faq-container{
+max-width:600px;
+margin:auto;
+}
+
+.faq{
+background:white;
+margin:10px 0;
+border-radius:5px;
+box-shadow:0 0 5px rgba(0,0,0,0.2);
+}
+
+.question{
+padding:15px;
+cursor:pointer;
+font-weight:bold;
+background:#2196f3;
+color:white;
+}
+
+.answer{
+display:none;
+padding:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>FAQ Accordion</h1>
+
+<div class="faq-container">
+
+<div class="faq">
+<div class="question">Should we trust atoms?</div>
+<div class="answer">Yes</div>
+</div>
+
+<div class="faq">
+<div class="question">What do you call someone with no body and no nose?</div>
+<div class="answer">Nobody knows</div>
+</div>
+
+<div class="faq">
+<div class="question">What’s the Object oriented way to become wealthy?</div>
+<div class="answer">Inheritance</div>
+</div>
+
+<div class="faq">
+<div class="question">How many tickles does it take to tickle an octopus?</div>
+<div class="answer">Ten tickles</div>
+</div>
+
+<div class="faq">
+<div class="question">What is 1+1?</div>
+<div class="answer">Depends on who you are asking</div>
+</div>
+
+</div>
+
+<script>
+
+const questions = document.querySelectorAll(".question");
+
+questions.forEach(function(q){
+
+q.addEventListener("click", function(){
+
+const answer = this.nextElementSibling;
+
+if(answer.style.display === "block"){
+answer.style.display = "none";
+}else{
+answer.style.display = "block";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

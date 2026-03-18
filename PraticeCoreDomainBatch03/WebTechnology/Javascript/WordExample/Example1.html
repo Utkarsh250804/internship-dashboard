@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timezone Converter</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1200") no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(0,0,0,0.7);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .time-display {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🌍 Timezone Converter</h2>
+
+    <select id="timezoneSelect">
+        <option value="Asia/Kolkata">IST (India)</option>
+        <option value="UTC">UTC</option>
+        <option value="America/Chicago">CST</option>
+        <option value="America/New_York">EST</option>
+    </select>
+
+    <div class="time-display" id="timeDisplay"></div>
+</div>
+
+<script>
+
+    const select = document.getElementById("timezoneSelect");
+    const display = document.getElementById("timeDisplay");
+
+    function updateTime() {
+        const timezone = select.value;
+
+        const options = {
+            timeZone: timezone,
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        };
+
+        const now = new Date();
+        const formattedTime = now.toLocaleString("en-US", options);
+
+        display.innerHTML = formattedTime;
+    }
+
+    // Update every second
+    setInterval(updateTime, 1000);
+
+    // Update when timezone changes
+    select.addEventListener("change", updateTime);
+
+    // Initial call
+    updateTime();
+
+</script>
+
+</body>
+</html>

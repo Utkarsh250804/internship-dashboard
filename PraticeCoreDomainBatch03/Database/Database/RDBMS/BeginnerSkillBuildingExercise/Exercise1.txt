@@ -1,0 +1,34 @@
+1️⃣ Table Structure
+
+Library books ke liye ek table banega:
+
+Table Name: Books
+
+Column Name	Data Type
+Title	VARCHAR
+Author	VARCHAR
+Year	INT
+Genre	VARCHAR
+2️⃣ Row aur Column kya hai
+
+Column (Field)
+Column table ka vertical part hota hai jo ek type ka data store karta hai.
+
+Example columns:
+
+Title
+Author
+Year
+Genre
+
+Row (Record)
+Row table ka horizontal part hota hai jo ek complete book ka data store karta hai.
+
+Example row:
+
+The Great Gatsby | F. Scott Fitzgerald | 1925 | Novel
+3️⃣ Sample Dataset Table Format
+Title	Author	Year	Genre
+The Great Gatsby	F. Scott Fitzgerald	1925	Novel
+To Kill a Mockingbird	Harper Lee	1960	Fiction
+1984	George Orwell	1949	Dystopian

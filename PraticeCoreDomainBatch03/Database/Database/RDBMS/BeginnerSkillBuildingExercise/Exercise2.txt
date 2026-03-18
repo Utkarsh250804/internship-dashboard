@@ -1,0 +1,48 @@
+1️⃣ Primary Key Add karo
+
+Table me BookID primary key add karte hain.
+
+Table Structure
+
+Column Name	Data Type
+BookID	INT (Primary Key)
+Title	VARCHAR
+Author	VARCHAR
+Year	INT
+Genre	VARCHAR
+2️⃣ Sample Dataset with Primary Key
+BookID	Title	Author	Year	Genre
+1	The Great Gatsby	F. Scott Fitzgerald	1925	Novel
+2	To Kill a Mockingbird	Harper Lee	1960	Fiction
+3	1984	George Orwell	1949	Dystopian
+3️⃣ Primary Key important kyu hai
+
+Primary key:
+
+Har record ko uniquely identify karti hai
+
+Duplicate records prevent karti hai
+
+NULL values allow nahi karti
+
+Database me data integrity maintain karti hai
+
+Example:
+
+BookID = 1 → unique book
+BookID = 2 → different book
+Agar SQL me likhna ho to
+CREATE TABLE Books (
+BookID INT PRIMARY KEY,
+Title VARCHAR(100),
+Author VARCHAR(100),
+Year INT,
+Genre VARCHAR(50)
+);
+
+Insert data:
+
+INSERT INTO Books VALUES
+(1,'The Great Gatsby','F. Scott Fitzgerald',1925,'Novel'),
+(2,'To Kill a Mockingbird','Harper Lee',1960,'Fiction'),
+(3,'1984','George Orwell',1949,'Dystopian');

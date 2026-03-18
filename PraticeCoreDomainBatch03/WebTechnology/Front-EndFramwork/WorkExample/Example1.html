@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Knockout Shopping Cart</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+
+<style>
+body{
+font-family: Arial;
+margin:40px;
+}
+
+.container{
+width:500px;
+border:1px solid #ccc;
+padding:20px;
+}
+
+table{
+margin-top:20px;
+width:100%;
+}
+
+button{
+margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Shopping Cart</h2>
+
+<!-- Category -->
+<label>Category</label>
+<select data-bind="value:selectedCategory">
+<option value="">Select Category</option>
+<option value="cars">Classic Cars</option>
+<option value="motorcycles">Motorcycles</option>
+<option value="planes">Planes</option>
+<option value="ships">Ships</option>
+<option value="trains">Trains</option>
+<option value="trucks">Trucks and Buses</option>
+<option value="vintage">Vintage Cars</option>
+</select>
+
+<br><br>
+
+<!-- Product -->
+<label>Product</label>
+<select data-bind="options:filteredProducts,
+optionsText:'name',
+value:selectedProduct,
+enable:selectedCategory,
+optionsCaption:'Select Product'">
+</select>
+
+<br><br>
+
+<!-- Cost -->
+<label>Cost</label>
+<input type="text" data-bind="value:price, enable:selectedProduct" readonly>
+
+<br><br>
+
+<!-- Quantity -->
+<label>Quantity</label>
+<input type="number" data-bind="value:quantity, enable:selectedProduct">
+
+<br><br>
+
+<!-- Total -->
+<label>Total</label>
+<input type="text" data-bind="value:total" readonly>
+
+<br><br>
+
+<button data-bind="click:addToCart">Add Product</button>
+
+</div>
+
+---
+
+<h3>Cart Items</h3>
+
+<table border="1">
+
+<thead>
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody data-bind="foreach:cart">
+
+<tr>
+<td data-bind="text:name"></td>
+<td data-bind="text:price"></td>
+<td data-bind="text:qty"></td>
+<td data-bind="text:total"></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<br>
+
+<button data-bind="click:submitOrder">Submit Order</button>
+
+<p data-bind="text:message"></p>
+
+---
+
+<script>
+
+function ViewModel(){
+
+var self=this;
+
+self.selectedCategory=ko.observable("");
+self.selectedProduct=ko.observable();
+
+self.quantity=ko.observable(1);
+self.price=ko.observable(0);
+
+self.products=[
+
+{category:"cars",name:"Ford Classic",price:10000},
+{category:"motorcycles",name:"Harley Bike",price:8000},
+{category:"planes",name:"Boeing 747",price:50000},
+{category:"ships",name:"Cargo Ship",price:40000},
+{category:"trains",name:"Bullet Train",price:30000},
+{category:"trucks",name:"Volvo Truck",price:25000},
+{category:"vintage",name:"Vintage Mustang",price:20000}
+
+];
+
+self.filteredProducts=ko.computed(function(){
+
+return self.products.filter(function(p){
+
+return p.category===self.selectedCategory();
+
+});
+
+});
+
+self.selectedProduct.subscribe(function(product){
+
+if(product){
+self.price(product.price);
+}
+
+});
+
+self.total=ko.computed(function(){
+
+return self.price()*self.quantity();
+
+});
+
+self.cart=ko.observableArray([]);
+
+self.message=ko.observable("");
+
+self.addToCart=function(){
+
+self.cart.push({
+
+name:self.selectedProduct().name,
+price:self.price(),
+qty:self.quantity(),
+total:self.total()
+
+});
+
+};
+
+self.submitOrder=function(){
+
+self.message("Order Submitted Successfully");
+
+};
+
+}
+
+ko.applyBindings(new ViewModel());
+
+</script>
+
+</body>
+</html>

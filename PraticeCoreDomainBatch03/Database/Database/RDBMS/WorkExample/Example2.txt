@@ -1,0 +1,83 @@
+-- =========================
+-- TASK 1: CREATE STAGING TABLE
+-- =========================
+
+CREATE TABLE StagingPrices (
+    RecordId INT IDENTITY(1,1) PRIMARY KEY,
+    SecurityId VARCHAR(20),
+    VendorId VARCHAR(20),
+    ExchangeCode VARCHAR(20),
+    CurrencyCode VARCHAR(10),
+    PriceDate DATE,
+    PriceType VARCHAR(20),
+    Price NUMERIC(10,2)
+);
+
+
+-- =========================
+-- TASK 2: INSERT SAMPLE DATA INTO STAGING TABLE
+-- =========================
+
+INSERT INTO StagingPrices
+(SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate, PriceType, Price)
+VALUES
+('SEC001','V001','NYSE','USD','2025-01-01','ASK',101),
+('SEC001','V001','NYSE','USD','2025-01-01','BID',99),
+('SEC001','V001','NYSE','USD','2025-01-01','MID',100),
+('SEC001','V001','NYSE','USD','2025-01-01','OPEN',98),
+('SEC001','V001','NYSE','USD','2025-01-01','CLOSE',102),
+('SEC001','V001','NYSE','USD','2025-01-01','NAV',100),
+('SEC001','V001','NYSE','USD','2025-01-01','COMPOSITE',101);
+
+
+-- =========================
+-- TASK 3: CREATE DATA MART TABLE (DENORMALIZED)
+-- =========================
+
+CREATE TABLE DataMartPrices (
+    RecordId INT IDENTITY(1,1) PRIMARY KEY,
+    SecurityId VARCHAR(20),
+    VendorId VARCHAR(20),
+    ExchangeCode VARCHAR(20),
+    CurrencyCode VARCHAR(10),
+    PriceDate DATE,
+    AskPrice NUMERIC(10,2),
+    BidPrice NUMERIC(10,2),
+    MidPrice NUMERIC(10,2),
+    OpenPrice NUMERIC(10,2),
+    ClosePrice NUMERIC(10,2),
+    NAVPrice NUMERIC(10,2),
+    CompositePrice NUMERIC(10,2)
+);
+
+
+-- =========================
+-- TASK 4: LOAD DATA INTO DATA MART TABLE
+-- =========================
+
+INSERT INTO DataMartPrices
+(SecurityId, VendorId, ExchangeCode, CurrencyCode, PriceDate,
+ AskPrice, BidPrice, MidPrice, OpenPrice, ClosePrice, NAVPrice, CompositePrice)
+
+SELECT
+SecurityId,
+VendorId,
+ExchangeCode,
+CurrencyCode,
+PriceDate,
+
+MAX(CASE WHEN PriceType = 'ASK' THEN Price END) AS AskPrice,
+MAX(CASE WHEN PriceType = 'BID' THEN Price END) AS BidPrice,
+MAX(CASE WHEN PriceType = 'MID' THEN Price END) AS MidPrice,
+MAX(CASE WHEN PriceType = 'OPEN' THEN Price END) AS OpenPrice,
+MAX(CASE WHEN PriceType = 'CLOSE' THEN Price END) AS ClosePrice,
+MAX(CASE WHEN PriceType = 'NAV' THEN Price END) AS NAVPrice,
+MAX(CASE WHEN PriceType = 'COMPOSITE' THEN Price END) AS CompositePrice
+
+FROM StagingPrices
+GROUP BY
+SecurityId,
+VendorId,
+ExchangeCode,
+CurrencyCode,
+PriceDate;

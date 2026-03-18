@@ -1,0 +1,80 @@
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+/* Header */
+
+header{
+background:#333;
+color:white;
+display:flex;
+justify-content:space-between;
+padding:15px;
+}
+
+nav ul{
+list-style:none;
+display:flex;
+gap:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+/* Blog Section */
+
+.blog-section{
+padding:20px;
+}
+
+#posts{
+margin-bottom:20px;
+}
+
+.post{
+background:white;
+padding:15px;
+margin:10px 0;
+box-shadow:0 0 5px rgba(0,0,0,0.2);
+}
+
+/* Comments */
+
+.comments{
+padding:20px;
+background:#fff;
+}
+
+textarea,input{
+display:block;
+margin:10px 0;
+padding:8px;
+width:300px;
+}
+
+/* Footer */
+
+footer{
+background:#333;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+}
+
+footer ul{
+list-style:none;
+display:flex;
+justify-content:center;
+gap:20px;
+padding:0;
+}
+
+footer a{
+color:white;
+text-decoration:none;
+}

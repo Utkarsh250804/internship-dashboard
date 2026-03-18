@@ -1,0 +1,4 @@
+SELECT ProductName, Price
+FROM Products
+WHERE Price < 20.00
+AND In_Stock = TRUE;

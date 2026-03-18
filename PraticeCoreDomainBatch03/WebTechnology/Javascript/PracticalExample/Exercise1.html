@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UTC Time Clock</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        canvas {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        select {
+            padding: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>UTC Analog Clock</h2>
+
+<select id="timezone">
+    <option value="UTC">UTC</option>
+    <option value="Asia/Kolkata">IST</option>
+    <option value="America/New_York">EST</option>
+    <option value="America/Chicago">CST</option>
+</select>
+
+<br><br>
+
+<canvas id="clock" width="300" height="300"></canvas>
+
+<script>
+    const canvas = document.getElementById("clock");
+    const ctx = canvas.getContext("2d");
+    const radius = canvas.width / 2;
+    ctx.translate(radius, radius);
+
+    const timezoneSelect = document.getElementById("timezone");
+
+    function drawClock() {
+        ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+
+        drawFace();
+        drawNumbers();
+        drawTime();
+    }
+
+    function drawFace() {
+        ctx.beginPath();
+        ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    function drawNumbers() {
+        ctx.font = "16px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        for (let num = 1; num <= 12; num++) {
+            let angle = num * Math.PI / 6;
+            ctx.rotate(angle);
+            ctx.translate(0, -radius + 25);
+            ctx.rotate(-angle);
+            ctx.fillText(num.toString(), 0, 0);
+            ctx.rotate(angle);
+            ctx.translate(0, radius - 25);
+            ctx.rotate(-angle);
+        }
+    }
+
+    function drawTime() {
+        const timezone = timezoneSelect.value;
+
+        const now = new Date();
+        const timeString = now.toLocaleString("en-US", { timeZone: timezone });
+        const time = new Date(timeString);
+
+        let hour = time.getHours();
+        let minute = time.getMinutes();
+        let second = time.getSeconds();
+
+        hour = hour % 12;
+        hour = (hour * Math.PI / 6) +
+               (minute * Math.PI / (6 * 60)) +
+               (second * Math.PI / (360 * 60));
+
+        drawHand(hour, radius * 0.5, 6);
+
+        minute = (minute * Math.PI / 30) +
+                 (second * Math.PI / (30 * 60));
+        drawHand(minute, radius * 0.7, 4);
+
+        second = (second * Math.PI / 30);
+        drawHand(second, radius * 0.9, 2, "red");
+    }
+
+    function drawHand(position, length, width, color = "black") {
+        ctx.beginPath();
+        ctx.lineWidth = width;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = color;
+        ctx.moveTo(0, 0);
+        ctx.rotate(position);
+        ctx.lineTo(0, -length);
+        ctx.stroke();
+        ctx.rotate(-position);
+    }
+
+    setInterval(drawClock, 1000);
+</script>
+
+</body>
+</html>
