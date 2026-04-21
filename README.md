@@ -132,9 +132,9 @@ python seed.py
 ```
 
 This creates:
-- 🎓 **Mentor**: `mentor@demo.com` / `password123`
-- 👩‍💻 **Student (Alice)**: `student1@demo.com` / `password123`
-- 👨‍💻 **Student (Bob)**: `student2@demo.com` / `password123`
+- 🎓 **Mentor**: `mponline@example.com` / `password123`
+- 👩‍💻 **Student (Alice)**: `utkarsh@example.com` / `password123`
+
 
 Plus sample tasks, reports with comments, and notifications.
 
