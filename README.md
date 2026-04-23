@@ -122,25 +122,11 @@ Swagger docs at: **http://localhost:8000/api/docs**
 
 ---
 
-### Step 2 — Seed Demo Data (optional but recommended)
 
-In a second terminal (with venv active):
-
-```bash
-cd internship-dashboard/backend
-python seed.py
-```
-
-This creates:
-- 🎓 **Mentor**: `mponline@example.com` / `password123`
-- 👩‍💻 **Student (Alice)**: `utkarsh@example.com` / `password123`
-
-
-Plus sample tasks, reports with comments, and notifications.
 
 ---
 
-### Step 3 — Frontend
+### Step 2 — Frontend
 
 ```bash
 cd internship-dashboard/frontend
