@@ -15,46 +15,80 @@ class ProfileUpdate(BaseModel):
     avatar: Optional[str] = None
 
 
+# ✅ Mentor ke assigned students
 @router.get("/students")
 async def get_my_students(current_user: User = Depends(get_current_user)):
     if current_user.role != UserRole.MENTOR:
         raise HTTPException(status_code=403, detail="Access denied")
+
     students = await User.find(
         User.role == UserRole.STUDENT,
         User.mentor_id == str(current_user.id),
     ).to_list()
+
     return [
-        {"id": str(s.id), "name": s.name, "email": s.email, "skills": s.skills, "bio": s.bio}
+        {
+            "id": str(s.id),
+            "name": s.name,
+            "email": s.email,
+            "skills": s.skills,
+            "bio": s.bio
+        }
         for s in students
     ]
 
 
+# ✅ Sab students (assign/unassign ke liye)
 @router.get("/all-students")
 async def get_all_students(current_user: User = Depends(get_current_user)):
     if current_user.role != UserRole.MENTOR:
         raise HTTPException(status_code=403, detail="Access denied")
+
     students = await User.find(User.role == UserRole.STUDENT).to_list()
+
     return [
-        {"id": str(s.id), "name": s.name, "email": s.email, "mentor_id": s.mentor_id}
+        {
+            "id": str(s.id),
+            "name": s.name,
+            "email": s.email,
+            "mentor_id": s.mentor_id
+        }
         for s in students
     ]
 
 
-@router.put("/assign/{student_id}")
-async def assign_student(student_id: str, current_user: User = Depends(get_current_user)):
+# ✅ 🔥 ASSIGN + UNASSIGN (TOGGLE)
+@router.put("/assign-toggle/{student_id}")
+async def assign_toggle(student_id: str, current_user: User = Depends(get_current_user)):
     if current_user.role != UserRole.MENTOR:
         raise HTTPException(status_code=403, detail="Access denied")
+
     try:
         student = await User.get(PydanticObjectId(student_id))
     except Exception:
         raise HTTPException(status_code=404, detail="Student not found")
+
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
-    student.mentor_id = str(current_user.id)
+
+    # 🔁 Toggle Logic
+    if student.mentor_id:
+        student.mentor_id = None
+        msg = "Student Unassigned"
+    else:
+        student.mentor_id = str(current_user.id)
+        msg = "Student Assigned"
+
     await student.save()
-    return {"message": "Student assigned successfully"}
+
+    return {"message": msg}
 
 
+# ❌ (optional) purana assign hata sakte ho
+# @router.put("/assign/{student_id}")  <-- remove kar do
+
+
+# ✅ Profile update
 @router.put("/profile")
 async def update_profile(data: ProfileUpdate, current_user: User = Depends(get_current_user)):
     if data.name:
@@ -65,7 +99,9 @@ async def update_profile(data: ProfileUpdate, current_user: User = Depends(get_c
         current_user.skills = data.skills
     if data.avatar is not None:
         current_user.avatar = data.avatar
+
     await current_user.save()
+
     return {
         "id": str(current_user.id),
         "name": current_user.name,

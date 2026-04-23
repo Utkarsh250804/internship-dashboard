@@ -19,12 +19,14 @@ api.interceptors.response.use(
   }
 )
 
+// 🔐 AUTH
 export const authAPI = {
   register: (data) => api.post('/auth/register', data),
   login: (data) => api.post('/auth/login', data),
   me: () => api.get('/auth/me'),
 }
 
+// 📋 TASKS
 export const tasksAPI = {
   getAll: (params) => api.get('/tasks/', { params }),
   create: (data) => api.post('/tasks/', data),
@@ -32,6 +34,7 @@ export const tasksAPI = {
   delete: (id) => api.delete(`/tasks/${id}`),
 }
 
+// 📊 REPORTS
 export const reportsAPI = {
   getAll: () => api.get('/reports/'),
   getOne: (id) => api.get(`/reports/${id}`),
@@ -42,10 +45,12 @@ export const reportsAPI = {
   deleteComment: (id, commentId) => api.delete(`/reports/${id}/comments/${commentId}`),
 }
 
+// 📈 ANALYTICS
 export const analyticsAPI = {
   get: () => api.get('/analytics/'),
 }
 
+// 🔔 NOTIFICATIONS
 export const notificationsAPI = {
   getAll: () => api.get('/notifications/'),
   getCount: () => api.get('/notifications/unread-count'),
@@ -53,10 +58,14 @@ export const notificationsAPI = {
   markAllRead: () => api.put('/notifications/read-all'),
 }
 
+// 👥 USERS (UPDATED)
 export const usersAPI = {
   getStudents: () => api.get('/users/students'),
   getAllStudents: () => api.get('/users/all-students'),
-  assignStudent: (id) => api.put(`/users/assign/${id}`),
+
+  // 🔥 TOGGLE (Assign + Unassign)
+  assignToggle: (id) => api.put(`/users/assign-toggle/${id}`),
+
   updateProfile: (data) => api.put('/users/profile', data),
 }
 
